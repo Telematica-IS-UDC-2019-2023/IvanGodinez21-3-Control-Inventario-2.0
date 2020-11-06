@@ -1,4 +1,4 @@
-class Producto {
+export default class Producto {
     /**
      * @param {number} codigo
      * @param {string} nombre
@@ -6,13 +6,19 @@ class Producto {
      * @param {number} cantidad
      * @param {number} costo
      * @param {number} total
+     * @param {object} siguiente
      */
     constructor(codigo, nombre, descripcion, cantidad, costo) {
-        this.codigo = codigo
-        this.nombre = nombre
-        this.descripcion = descripcion
-        this.cantidad = cantidad
-        this.costo = costo
-        this.total = costo * cantidad
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.costo = costo;
+        this.total = costo * cantidad;
+        this.siguiente = null;
+        this.anterior = null;
+    }
+    añadirSiguiente(producto) {
+        this.siguiente = producto;
     }
 }
