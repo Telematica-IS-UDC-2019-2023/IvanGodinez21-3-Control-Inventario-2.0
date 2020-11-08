@@ -1,5 +1,7 @@
 export default class Interfaz {
-    mostrarPrompt() {}
+    mostrarAlerta(tipo, mensaje) {
+        alert(`${tipo}\n\n${mensaje}`)
+    }
     mostrarArticulo(producto) {
         let tablecodigo = document.getElementById('tablecodigo');
         let tablenombre = document.getElementById('tablenombre');
