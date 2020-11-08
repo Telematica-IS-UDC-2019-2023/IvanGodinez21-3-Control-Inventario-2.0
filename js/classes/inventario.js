@@ -1,3 +1,4 @@
+import Producto from './producto.js';
 export default class Inventario {
     /**
      * @param {object} lista
@@ -14,18 +15,23 @@ export default class Inventario {
     }
     eliminarProducto(producto) {
         let aux = this.inicio;
+        if (this.inicio != null) {
         if (this.inicio.codigo == producto.codigo) {
             this.inicio = this.inicio.siguiente;
+            return new Producto(aux.codigo, aux.nombre, aux.descripcion, aux.costo)
         } else {
             try {
                 while (aux.siguiente.codigo != producto.codigo) {
                     aux = aux.siguiente;
                 }
                 if (aux.siguiente.codigo == producto.codigo) {
+                    let producto = new Producto(aux.siguiente.codigo, aux.siguiente.nombre, aux.siguiente.descripcion, aux.siguiente.costo)
                     aux.siguiente = aux.siguiente.siguiente
+                    return producto
                 }
             } catch (error) {}
         }
+    }
     }
     buscarProducto(producto) {
         let aux = this.inicio;
@@ -40,8 +46,14 @@ export default class Inventario {
             } catch (error) {}
         }
     }
-    listarProductos() {}
-    listarProductosInverso() {}
+    listarProductos(interfaz, table) {
+        let aux = this.inicio;
+        interfaz.mostrarLista(aux, table);
+    }
+    listarProductosInverso(interfaz, tableinvertida) {
+        let aux = this.inicio;
+        interfaz.mostrarListaInversa(aux, tableinvertida);
+    }
     insertarProducto() {}
     agregarProductoInicio(producto) {
         if (this.inicio === null) {
@@ -54,7 +66,9 @@ export default class Inventario {
     }
     eliminarProductoInicio() {
         if (this.inicio != null) {
-            this.inicio = this.inicio.siguiente
+            let producto = new Producto(this.inicio.codigo, this.inicio.nombre, this.inicio.descripcion, this.inicio.costo);
+            this.inicio = this.inicio.siguiente;
+            return producto
         }
     }
 }
