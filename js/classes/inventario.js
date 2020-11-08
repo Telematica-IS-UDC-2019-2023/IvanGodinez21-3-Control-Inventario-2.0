@@ -10,38 +10,34 @@ export default class Inventario {
             this.inicio = producto;
         } else {
             producto.siguiente = productoNuevo;
-            productoNuevo.anterior = producto;
         }
     }
     eliminarProducto(producto) {
-        //Error
         let aux = this.inicio;
-        if (aux) {
-            while (aux.codigo != producto.codigo) {
-                aux = aux.siguiente;
-            }
-            if (aux.codigo == producto.codigo) {
-                if (aux.anterior != null) {
-                    aux.anterior.siguiente = aux.siguiente;
+        if (this.inicio.codigo == producto.codigo) {
+            this.inicio = this.inicio.siguiente;
+        } else {
+            try {
+                while (aux.siguiente.codigo != producto.codigo) {
+                    aux = aux.siguiente;
                 }
-                if (aux.siguiente != null) {
-                    aux.siguiente.anterior = aux.anterior;
+                if (aux.siguiente.codigo == producto.codigo) {
+                    aux.siguiente = aux.siguiente.siguiente
                 }
-            }
-            if (aux.codigo == this.inicio.codigo) {
-                this.inicio = null;
-            }
+            } catch (error) {}
         }
     }
     buscarProducto(producto) {
         let aux = this.inicio;
         if (aux) {
-            while (aux.codigo != producto.codigo) {
-                aux = aux.siguiente;
-            }
-            if (aux.codigo == producto.codigo) {
-                return aux;
-            }
+            try {
+                while (aux.codigo != producto.codigo) {
+                    aux = aux.siguiente;
+                }
+                if (aux.codigo == producto.codigo) {
+                    return aux;
+                }
+            } catch (error) {}
         }
     }
     listarProductos() {}
@@ -57,8 +53,8 @@ export default class Inventario {
         }
     }
     eliminarProductoInicio() {
-        //Error
-        this.inicio = this.inicio.siguiente
-        this.inicio.anterior = null
+        if (this.inicio != null) {
+            this.inicio = this.inicio.siguiente
+        }
     }
 }

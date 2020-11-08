@@ -70,7 +70,11 @@ btnBuscar.addEventListener('click', () => {
     var producto = new Producto(codigo, '', '', '', '');
     producto = inventario.buscarProducto(producto);
     console.log(inventario);
+    if (producto == undefined) {
+        console.log(`Producto no encontrado`);
+    } else {
     console.log(producto);
+    }
 });
 btnLimpiar.addEventListener('click', () => {
     console.clear();
