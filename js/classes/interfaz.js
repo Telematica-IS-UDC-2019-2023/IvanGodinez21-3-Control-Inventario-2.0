@@ -1,7 +1,21 @@
 export default class Interfaz {
     mostrarPrompt() {}
-    mostrarArticulo() {}
-    mostrarLista(aux, table) {
+    mostrarArticulo(producto) {
+        let tablecodigo = document.getElementById('tablecodigo');
+        let tablenombre = document.getElementById('tablenombre');
+        let tabledescripcion = document.getElementById('tabledescripcion');
+        let tablecantidad = document.getElementById('tablecantidad');
+        let tablecosto = document.getElementById('tablecosto');
+        let tabletotal = document.getElementById('tabletotal');
+        tablecodigo.innerText = producto.codigo;
+        tablenombre.innerText = producto.nombre;
+        tabledescripcion.innerText = producto.descripcion;
+        tablecantidad.innerText = producto.cantidad;
+        tablecosto.innerText = producto.costo;
+        tabletotal.innerText = producto.total;
+    }
+    mostrarLista(aux) {
+        let table = document.getElementById('lista');
         table.innerHTML = '';
         let cabecera = table.insertRow(-1);
         let titulo1 = cabecera.insertCell(0);
@@ -17,7 +31,8 @@ export default class Interfaz {
             aux = aux.siguiente;
         }
     }
-    mostrarListaInversa(aux, tableinvertida) {
+    mostrarListaInversa(aux) {
+        let tableinvertida = document.getElementById('listainvertida');
         tableinvertida.innerHTML = '';
         let cabecera = tableinvertida.insertRow(0);
         let titulo1 = cabecera.insertCell(0);
@@ -33,7 +48,8 @@ export default class Interfaz {
             aux = aux.siguiente;
         }
     }
-    mostrarRegistro(evento, producto, tableactividad) {
+    mostrarRegistro(evento, producto) {
+        let tableactividad = document.getElementById('actividad');
         let fila = tableactividad.insertRow(-1);
         let celda1 = fila.insertCell(0);
         let celda2 = fila.insertCell(1);
@@ -52,14 +68,14 @@ export default class Interfaz {
         }
     }
     limpiar(codigo, nombre, descripcion, cantidad, costo, cboxInsertar, casilla) {
-        codigo.value = ''
-        nombre.value = ''
-        descripcion.value = ''
-        cantidad.value = ''
-        costo.value = ''
-        cboxInsertar.checked = false
+        codigo.value = '';
+        nombre.value = '';
+        descripcion.value = '';
+        cantidad.value = '';
+        costo.value = '';
+        cboxInsertar.checked = false;
         if (casilla) {
-            casilla.remove()
+            casilla.remove();
         }
     }
 }

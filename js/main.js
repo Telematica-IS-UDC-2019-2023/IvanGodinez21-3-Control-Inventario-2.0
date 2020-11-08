@@ -3,7 +3,7 @@ import Interfaz from './classes/interfaz.js';
 import Inventario from './classes/inventario.js';
 import Producto from './classes/producto.js';
 //Interfaz
-var interfaz = new Interfaz
+var interfaz = new Interfaz;
 //Botones
 const btnAgregar = document.querySelector('#btnAgregar');
 const btnAgregar1 = document.querySelector('#btnAgregar1');
@@ -13,10 +13,6 @@ const btnBuscar = document.querySelector('#btnBuscar');
 const btnLimpiar = document.querySelector('#btnLimpiar');
 //checkbox
 const cboxInsertar = document.querySelector('#cboxInsertar');
-//tablas
-var table = document.getElementById('lista');
-var tableinvertida = document.getElementById('listainvertida');
-var tableactividad = document.getElementById('actividad');
 //Varaibles
 var producto;
 var inventario = new Inventario();
@@ -28,18 +24,27 @@ btnAgregar.addEventListener('click', () => {
     let descripcion = document.getElementById('descripcion').value;
     let cantidad = document.getElementById('cantidad').value;
     let costo = document.getElementById('costo').value;
+    var casilla = document.getElementById('casilla');
     if (inventario.inicio == null) {
         producto = new Producto(codigo, nombre, descripcion, cantidad, costo);
         inventario.agregarProducto(producto);
     } else {
-        var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
-        inventario.agregarProducto(producto, aux);
-        producto = aux;
+        if (casilla) {
+            if (casilla.value) {
+            var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
+            inventario.insertarProducto(aux, casilla.value);
+            producto = aux;
+        }
+        } else {
+            var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
+            inventario.agregarProducto(producto, aux);
+            producto = aux;
+        }
     }
     console.log(inventario);
-    inventario.listarProductos(interfaz, table);
-    inventario.listarProductosInverso(interfaz, tableinvertida);
-    interfaz.mostrarRegistro('Agregar', producto, tableactividad);
+    inventario.listarProductos(interfaz);
+    inventario.listarProductosInverso(interfaz);
+    interfaz.mostrarRegistro('Agregar', producto);
 });
 btnAgregar1.addEventListener('click', () => {
     console.clear();
@@ -52,15 +57,15 @@ btnAgregar1.addEventListener('click', () => {
         producto = new Producto(codigo, nombre, descripcion, cantidad, costo);
         inventario = new Inventario();
         inventario.agregarProductoInicio(producto);
-        interfaz.mostrarRegistro('Agregar 1°', producto, tableactividad);
+        interfaz.mostrarRegistro('Agregar 1°', producto);
     } else {
         var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
         inventario.agregarProductoInicio(aux);
-        interfaz.mostrarRegistro('Agregar 1°', aux, tableactividad);
+        interfaz.mostrarRegistro('Agregar 1°', aux);
     }
     console.log(inventario);
-    inventario.listarProductos(interfaz, table);
-    inventario.listarProductosInverso(interfaz, tableinvertida);
+    inventario.listarProductos(interfaz);
+    inventario.listarProductosInverso(interfaz);
 });
 btnEliminar.addEventListener('click', () => {
     console.clear();
@@ -68,20 +73,20 @@ btnEliminar.addEventListener('click', () => {
     var producto = new Producto(codigo, '', '', '', '');
     producto = inventario.eliminarProducto(producto);
     console.log(inventario);
-    inventario.listarProductos(interfaz, table);
-    inventario.listarProductosInverso(interfaz, tableinvertida);
+    inventario.listarProductos(interfaz);
+    inventario.listarProductosInverso(interfaz);
     if (producto != null) {
-        interfaz.mostrarRegistro('Eliminar', producto, tableactividad);
+        interfaz.mostrarRegistro('Eliminar', producto);
     }
 });
 btnEliminar1.addEventListener('click', () => {
     console.clear();
     producto = inventario.eliminarProductoInicio();
     console.log(inventario);
-    inventario.listarProductos(interfaz, table);
-    inventario.listarProductosInverso(interfaz, tableinvertida);
+    inventario.listarProductos(interfaz);
+    inventario.listarProductosInverso(interfaz);
     if (producto != null) {
-        interfaz.mostrarRegistro('Eliminar 1°', producto, tableactividad);
+        interfaz.mostrarRegistro('Eliminar 1°', producto);
     }
 });
 btnBuscar.addEventListener('click', () => {
@@ -93,7 +98,8 @@ btnBuscar.addEventListener('click', () => {
     if (producto == undefined) {
         console.log(`Producto no encontrado`);
     } else {
-        interfaz.mostrarRegistro('Buscar', producto, tableactividad);
+        interfaz.mostrarArticulo(producto);
+        interfaz.mostrarRegistro('Buscar', producto);
         console.log(producto);
     }
 });

@@ -46,15 +46,28 @@ export default class Inventario {
             } catch (error) {}
         }
     }
-    listarProductos(interfaz, table) {
+    listarProductos(interfaz) {
         let aux = this.inicio;
-        interfaz.mostrarLista(aux, table);
+        interfaz.mostrarLista(aux);
     }
-    listarProductosInverso(interfaz, tableinvertida) {
+    listarProductosInverso(interfaz) {
         let aux = this.inicio;
-        interfaz.mostrarListaInversa(aux, tableinvertida);
+        interfaz.mostrarListaInversa(aux);
     }
-    insertarProducto() {}
+    insertarProducto(producto, casilla) {
+        let aux = this.inicio
+        let i = 0
+        while (i <= casilla){
+            if (aux.siguiente != null){
+                aux = aux.siguiente
+            }
+            i++
+        }
+        if (i == casilla){
+            producto.siguiente = aux
+            aux.siguiente = producto
+        }
+    }
     agregarProductoInicio(producto) {
         if (this.inicio === null) {
             this.inicio = producto;
