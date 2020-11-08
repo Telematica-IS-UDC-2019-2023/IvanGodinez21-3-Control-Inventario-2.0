@@ -70,13 +70,13 @@ btnAgregar1.addEventListener('click', () => {
 btnEliminar.addEventListener('click', () => {
     console.clear();
     let codigo = document.getElementById('codigo').value;
-    var producto = new Producto(codigo, '', '', '', '');
-    producto = inventario.eliminarProducto(producto);
+    var aux = new Producto(codigo, '', '', '', '');
+    aux = inventario.eliminarProducto(aux);
     console.log(inventario);
     inventario.listarProductos(interfaz);
     inventario.listarProductosInverso(interfaz);
-    if (producto != null) {
-        interfaz.mostrarRegistro('Eliminar', producto);
+    if (aux != null) {
+        interfaz.mostrarRegistro('Eliminar', aux);
     }
 });
 btnEliminar1.addEventListener('click', () => {
@@ -96,6 +96,7 @@ btnBuscar.addEventListener('click', () => {
     producto = inventario.buscarProducto(producto);
     console.log(inventario);
     if (producto == undefined) {
+        interfaz.ocultarArticulo();
         console.log(`Producto no encontrado`);
     } else {
         interfaz.mostrarArticulo(producto);

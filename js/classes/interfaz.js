@@ -14,6 +14,20 @@ export default class Interfaz {
         tablecosto.innerText = producto.costo;
         tabletotal.innerText = producto.total;
     }
+    ocultarArticulo() {
+        let tablecodigo = document.getElementById('tablecodigo');
+        let tablenombre = document.getElementById('tablenombre');
+        let tabledescripcion = document.getElementById('tabledescripcion');
+        let tablecantidad = document.getElementById('tablecantidad');
+        let tablecosto = document.getElementById('tablecosto');
+        let tabletotal = document.getElementById('tabletotal');
+        tablecodigo.innerText = '----';
+        tablenombre.innerText = '----';
+        tabledescripcion.innerText = '----';
+        tablecantidad.innerText = '----';
+        tablecosto.innerText = '----';
+        tabletotal.innerText = '----';
+    }
     mostrarLista(aux) {
         let table = document.getElementById('lista');
         table.innerHTML = '';
