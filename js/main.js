@@ -37,19 +37,38 @@ btnAgregar.addEventListener('click', () => {
         } else {
             if (casilla) {
                 if (casilla.value != '') {
-                    console.log(casilla.value)
                     var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
-                    inventario.insertarProducto(aux, casilla.value);
-                    producto = aux;
-                    interfaz.mostrarRegistro('Insertar', producto);
+                    if (inventario.buscarProducto(aux) != null) {
+                        if (inventario.buscarProducto(aux).codigo != aux.codigo) {
+                            inventario.insertarProducto(aux, casilla.value);
+                            producto = aux;
+                            interfaz.mostrarRegistro('Insertar', producto);
+                        } else {
+                            interfaz.mostrarAlerta('🚫 Error 🚫', 'No puedes insertar productos con el mismo código');
+                        }
+                    } else {
+                        inventario.insertarProducto(aux, casilla.value);
+                        producto = aux;
+                        interfaz.mostrarRegistro('Insertar', producto);
+                    }
                 } else {
                     interfaz.mostrarAlerta('🚫 Error 🚫', 'Por favor ingresa la casilla en la que se insertará el producto');
                 }
             } else {
                 var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
-                inventario.agregarProducto(producto, aux);
-                producto = aux;
-                interfaz.mostrarRegistro('Agregar', producto);
+                if (inventario.buscarProducto(aux) != null) {
+                    if (inventario.buscarProducto(aux).codigo != aux.codigo) {
+                        inventario.agregarProducto(producto, aux);
+                        producto = aux;
+                        interfaz.mostrarRegistro('Agregar', producto);
+                    } else {
+                        interfaz.mostrarAlerta('🚫 Error 🚫', 'No puedes añadir productos con el mismo código');
+                    }
+                } else {
+                    inventario.agregarProducto(producto, aux);
+                    producto = aux;
+                    interfaz.mostrarRegistro('Agregar', producto);
+                }
             }
         }
         inventario.listarProductos(interfaz);
@@ -74,8 +93,17 @@ btnAgregar1.addEventListener('click', () => {
             interfaz.mostrarRegistro('Agregar 1°', producto);
         } else {
             var aux = new Producto(codigo, nombre, descripcion, cantidad, costo);
-            inventario.agregarProductoInicio(aux);
-            interfaz.mostrarRegistro('Agregar 1°', aux);
+            if (inventario.buscarProducto(aux) != null) {
+                if (inventario.buscarProducto(aux).codigo != aux.codigo) {
+                    inventario.agregarProductoInicio(aux);
+                    interfaz.mostrarRegistro('Agregar 1°', aux);
+                } else {
+                    interfaz.mostrarAlerta('🚫 Error 🚫', 'No puedes añadir productos con el mismo código');
+                }
+            } else {
+                inventario.agregarProductoInicio(aux);
+                interfaz.mostrarRegistro('Agregar 1°', aux);
+            }
         }
         inventario.listarProductos(interfaz);
         inventario.listarProductosInverso(interfaz);
